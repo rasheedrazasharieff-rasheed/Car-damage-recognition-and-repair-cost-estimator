@@ -94,8 +94,8 @@ The detected parts are highlighted in the image, and the system estimates repair
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/sahilkhan-7/accident-damage-detection.git
-   cd accident-damage-detection
+   https://github.com/rasheedrazasharieff-rasheed/Car-damage-recognition-and-repair-cost-estimator.git
+   cd Car-damage-recognition-and-repair-cost-estimator
    ```
 
 2. **Install Required Packages**:

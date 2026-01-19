@@ -1,133 +1,302 @@
-import os
-import json
-from collections import Counter
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import config
+import mysql.connector as connector
 from werkzeug.utils import secure_filename
+import os
 from ultralytics import YOLO
+import bcrypt
+from collections import Counter
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'super_secret_base_key'  # Needed for flash messages
+app.secret_key = os.getenv('SECRET_KEY')
 
-# Configuration
-UPLOAD_FOLDER = 'static'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-MODEL_PATH = "models/model weights/best.pt"
-PRICES_JSON_PATH = "car_parts_prices.json"
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+def connect_to_db():
+    try:
+        connection = connector.connect(**config.mysql_credentials, use_pure=True)
+        return connection
+    except connector.Error as e:
+        print(f"Error connecting to database: {e}")
+        return None
 
-# Load YOLO Model
-try:
-    model = YOLO(MODEL_PATH)
-    print("YOLO model loaded successfully.")
-except Exception as e:
-    print(f"Error loading model: {e}")
-    model = None
 
-# Load Car Parts Prices from JSON
-def load_prices():
-    if os.path.exists(PRICES_JSON_PATH):
-        with open(PRICES_JSON_PATH, 'r') as f:
-            return json.load(f)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        vehicle_id = request.form.get('vehicleId')
+        contact_number = request.form.get('phoneNumber')
+        address = request.form.get('address')
+        car_brand = request.form.get('carBrand')
+        model = request.form.get('carModel')
+
+        if not all([name, password, email, vehicle_id, contact_number, address, car_brand, model]):
+            flash("All fields are required!", "error")
+            return render_template('signup.html')
+
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+        connection = connect_to_db()
+        if connection:
+            try:
+                with connection.cursor() as cursor:
+                    query = '''
+                    INSERT INTO user_info (name, password, email, vehicle_id, contact_number, address, car_brand, model)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    '''
+                    cursor.execute(query, (name, hashed_password, email, vehicle_id, contact_number, address, car_brand,
+                                           model))
+                    connection.commit()
+                flash("Signup successful!", "success")
+                return redirect(url_for('dashboard'))
+            except connector.IntegrityError as e:
+                if 'Duplicate entry' in str(e):
+                    flash("Email already exists. Please use a different email.", "error")
+                else:
+                    flash("An error occurred while signing up. Please try again.", "error")
+            except connector.Error as e:
+                print(f"Error executing query: {e}")
+                flash("An error occurred while signing up. Please try again.", "error")
+        else:
+            flash("Database connection failed. Please try again later.", "error")
+
+    return render_template('signup.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        print(f"Email : {email}")
+        print(f"Password : {password}")
+
+        if not email or not password:
+            flash("Email and password are required!", "error")
+            return render_template('login.html')
+
+        connection = connect_to_db()
+        if connection:
+            try:
+                with connection.cursor() as cursor:
+                    query = "SELECT password FROM user_info WHERE email = %s"
+                    cursor.execute(query, (email,))
+                    result = cursor.fetchone()
+                    if result and bcrypt.checkpw(password.encode('utf-8'), result[0].encode('utf-8')):
+                        session['user_email'] = email  # Store user email in session
+                        flash("Login successful!", "success")
+                        return redirect(url_for('dashboard'))
+                    else:
+                        flash("Invalid email or password.", "error")
+            except connector.Error as e:
+                print(f"Error executing query: {e}")
+                flash("An error occurred during login. Please try again.", "error")
+        else:
+            flash("Database connection failed. Please try again later.", "error")
+
+    return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_email', None)  # Remove user email from session
+    flash("You have been logged out.", "info")
+
+    return redirect(url_for('login'))
+
+
+# Load YOLO model
+model_path = "models/model weights/best.pt"
+model = YOLO(model_path)
+
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'POST':
+        # CHANGED: Get list of files instead of single file
+        files = request.files.getlist('image')
+
+        if not files or files[0].filename == '':
+            flash('Please upload at least one image.', 'error')
+            return render_template('dashboard.html')
+
+        user_email = session.get('user_email')
+        if not user_email:
+            flash('You need to log in to get an estimate.', 'error')
+            return redirect(url_for('login'))
+
+        image_data = []  # Stores pairs of (original, detected) filenames
+        total_class_counts = Counter()  # Aggregates counts from all images
+
+        # Loop through all uploaded files
+        for i, file in enumerate(files):
+            filename = secure_filename(file.filename)
+            if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                continue
+
+            # Save original image with unique name
+            save_name = f"uploaded_{i}_{filename}"
+            image_path = os.path.join('static', save_name)
+            file.save(image_path)
+
+            # Predict
+            result = model(image_path)
+            detected_objects = result[0].boxes
+            class_ids = [box.cls.item() for box in detected_objects]
+
+            # Add counts to global counter
+            total_class_counts.update(class_ids)
+
+            # Save detected image
+            detected_name = f"detected_{i}_{filename}"
+            detected_image_path = os.path.join('static', detected_name)
+            result[0].save(detected_image_path)
+
+            image_data.append({
+                'original': save_name,
+                'detected': detected_name
+            })
+
+        print(f"Total Class counts : {total_class_counts}")
+
+        # Fetch prices based on TOTAL counts from all images
+        part_prices = get_part_prices(user_email, total_class_counts)
+
+        # Pass image_data list instead of single image paths
+        return render_template('estimate.html', image_data=image_data, part_prices=part_prices)
+
+    return render_template('dashboard.html')
+
+
+def get_part_prices(email, class_counts):
+    connection = connect_to_db()
+    if connection:
+        try:
+            with connection.cursor(dictionary=True) as cursor:
+                # Get user's car brand and model
+                cursor.execute("SELECT car_brand, model FROM user_info WHERE email = %s", (email,))
+                user_data = cursor.fetchone()
+                if not user_data:
+                    print("User not found")
+                    return {}
+
+                car_brand = user_data['car_brand']
+                car_model = user_data['model']
+
+                # Fetch part prices
+                prices = {}
+                for class_id, count in class_counts.items():
+                    part_name = get_part_name_from_id(class_id)
+                    # print(f"Parts name: {part_name}")
+                    if part_name:
+                        cursor.execute(
+                            "SELECT price FROM car_models WHERE brand = %s AND model = %s AND part = %s",
+                            (car_brand, car_model, part_name)
+                        )
+                        price_data = cursor.fetchone()
+                        # print(f"Price data : {price_data}")
+                        if price_data:
+                            price_per_part = price_data['price']
+                            total_price = price_per_part * count
+                            prices[part_name] = {'count': count, 'price': price_per_part, 'total': total_price}
+                # print(f"Prices : {prices}")
+                return prices
+        except connector.Error as e:
+            print(f"Error executing query: {e}")
+            return {}
+    print("Connection failed")
     return {}
 
-CAR_DATA = load_prices()
 
-# Helper: Map YOLO class IDs to Part Names
 def get_part_name_from_id(class_id):
-    # Based on your original code
     class_names = ['Bonnet', 'Bumper', 'Dickey', 'Door', 'Fender', 'Light', 'Windshield']
     if 0 <= class_id < len(class_names):
         return class_names[int(class_id)]
     return None
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    estimate_results = None
-    detected_image_filename = None
-    original_image_filename = None
-    selected_brand = ""
-    selected_model = ""
 
-    if request.method == 'POST':
-        # 1. Get Form Data
-        selected_brand = request.form.get('carBrand')
-        selected_model = request.form.get('carModel')
-        file = request.files.get('image')
+@app.route('/view_profile')
+def view_profile():
+    if 'user_email' not in session:
+        flash('You need to login to view your profile.', 'error')
+        return redirect(url_for('login'))
 
-        # 2. Validate Inputs
-        if not file or not file.filename:
-            flash('No image selected.')
-        elif not selected_brand or not selected_model:
-            flash('Please select both Brand and Model.')
-        else:
-            # 3. Save Image
-            filename = secure_filename(file.filename)
-            original_path = os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_base.jpg')
-            file.save(original_path)
-            original_image_filename = 'uploaded_base.jpg'
+    connection = connect_to_db()
+    if connection:
+        try:
+            with connection.cursor(dictionary=True) as cursor:
+                # Fetch current user information
+                cursor.execute("SELECT * FROM user_info WHERE email = %s", (session['user_email'],))
+                user_info = cursor.fetchone()
+                if not user_info:
+                    flash('User not found.', 'error')
+                    return redirect(url_for('dashboard'))
+                return render_template('view_profile.html', user_info=user_info)
+        except connector.Error as e:
+            print(f"Error executing query: {e}")
+            flash("An error occurred while fetching your profile. Please try again.", "error")
+    else:
+        flash("Database connection failed. Please try again later.", "error")
 
-            # 4. Run Detection
-            if model:
-                results = model(original_path)
-                detected_objects = results[0].boxes
-                class_ids = [int(box.cls.item()) for box in detected_objects]
-                class_counts = Counter(class_ids)
+    return redirect(url_for('dashboard'))
 
-                # Save Detected Image
-                detected_filename = 'detected_base.jpg'
-                detected_path = os.path.join(app.config['UPLOAD_FOLDER'], detected_filename)
-                results[0].save(detected_path)
-                detected_image_filename = detected_filename
 
-                # 5. Calculate Prices
-                estimate_results = calculate_cost(selected_brand, selected_model, class_counts)
-            else:
-                flash("Model not loaded.")
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user_email' not in session:
+        flash('You need to login to edit your profile.', 'error')
+        return redirect(url_for('login'))
 
-    # Pass the entire CAR_DATA to template so JS can handle the dropdown logic
-    return render_template('index.html', 
-                           car_data=CAR_DATA, 
-                           estimate=estimate_results,
-                           detected_img=detected_image_filename,
-                           original_img=original_image_filename,
-                           sel_brand=selected_brand,
-                           sel_model=selected_model)
+    connection = connect_to_db()
+    if connection:
+        try:
+            with connection.cursor(dictionary=True) as cursor:
+                if request.method == 'POST':
+                    # Update user information
+                    query = '''
+                    UPDATE user_info
+                    SET name = %s, email = %s, vehicle_id = %s, contact_number = %s, 
+                        address = %s, car_brand = %s, model = %s
+                    WHERE email = %s
+                    '''
+                    cursor.execute(query, (
+                        request.form['name'],
+                        request.form['email'],
+                        request.form['vehicleId'],
+                        request.form['phoneNumber'],
+                        request.form['address'],
+                        request.form['carBrand'],
+                        request.form['carModel'],
+                        session['user_email']
+                    ))
+                    connection.commit()
+                    flash('Profile updated successfully!', 'success')
+                    session['user_email'] = request.form['email']  # Update session if email changed
+                    return redirect(url_for('dashboard'))
 
-def calculate_cost(brand, car_model, class_counts):
-    total_bill = 0
-    parts_breakdown = []
+                # Fetch current user information
+                cursor.execute("SELECT * FROM user_info WHERE email = %s", (session['user_email'],))
+                user_info = cursor.fetchone()
+                return render_template('edit_profile.html', user_info=user_info)
 
-    # Check if Brand/Model exists in JSON
-    if brand in CAR_DATA and car_model in CAR_DATA[brand]:
-        model_pricing = CAR_DATA[brand][car_model]
+        except connector.Error as e:
+            print(f"Error executing query: {e}")
+            flash("An error occurred while updating your profile. Please try again.", "error")
+    else:
+        flash("Database connection failed. Please try again later.", "error")
 
-        for class_id, count in class_counts.items():
-            part_name = get_part_name_from_id(class_id)
-            
-            if part_name and part_name in model_pricing:
-                price_per_unit = model_pricing[part_name]
-                part_total = price_per_unit * count
-                total_bill += part_total
-                
-                parts_breakdown.append({
-                    'part': part_name,
-                    'count': count,
-                    'price_each': price_per_unit,
-                    'total': part_total
-                })
-            elif part_name:
-                parts_breakdown.append({
-                    'part': part_name,
-                    'count': count,
-                    'price_each': "N/A",
-                    'total': 0
-                })
-    
-    return {'breakdown': parts_breakdown, 'grand_total': total_bill}
+    return redirect(url_for('dashboard'))
+
 
 if __name__ == '__main__':
-    # Create static folder if it doesn't exist
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
-    app.run(debug=True, port=5001)
+    app.run(debug=True)

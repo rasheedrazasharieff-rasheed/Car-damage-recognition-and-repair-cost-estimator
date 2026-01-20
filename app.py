@@ -8,9 +8,7 @@ import bcrypt
 from collections import Counter
 from dotenv import load_dotenv
 
-
 load_dotenv()
-
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -42,7 +40,7 @@ def signup():
         address = request.form.get('address')
         car_brand = request.form.get('carBrand')
         model = request.form.get('carModel')
-        
+
         # Added contact_number to validation
         if not all([name, password, email, vehicle_id, contact_number, address, car_brand, model]):
             flash("All fields are required!", "error")
@@ -59,7 +57,8 @@ def signup():
                     INSERT INTO user_info (name, password, email, vehicle_id, contact_number, address, car_brand, model)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     '''
-                    cursor.execute(query, (name, hashed_password, email, vehicle_id, contact_number, address, car_brand, model))
+                    cursor.execute(query, (name, hashed_password, email, vehicle_id, contact_number, address, car_brand,
+                                           model))
                     connection.commit()
                 flash("Signup successful!", "success")
                 return redirect(url_for('dashboard'))
@@ -73,7 +72,7 @@ def signup():
                 flash("An error occurred while signing up. Please try again.", "error")
         else:
             flash("Database connection failed. Please try again later.", "error")
-            
+
     return render_template('signup.html')
 
 
@@ -115,7 +114,7 @@ def login():
 def logout():
     session.pop('user_email', None)  # Remove user email from session
     flash("You have been logged out.", "info")
-    
+
     return redirect(url_for('login'))
 
 
@@ -129,15 +128,15 @@ def dashboard():
     if request.method == 'POST':
         # Use getlist to retrieve multiple files
         files = request.files.getlist('image')
-        
+
         if not files or files[0].filename == '':
             flash('Please upload at least one image.', 'error')
             return render_template('dashboard.html')
 
         # Initialize lists to store paths and a global counter for all images
-        image_data = [] # Will store tuples of (original_filename, detected_filename)
+        image_data = []  # Will store tuples of (original_filename, detected_filename)
         total_class_counts = Counter()
-        
+
         # Get user email
         user_email = session.get('user_email')
         if not user_email:
@@ -148,26 +147,26 @@ def dashboard():
         for i, file in enumerate(files):
             filename = secure_filename(file.filename)
             if not filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-                continue # Skip invalid files
-            
+                continue  # Skip invalid files
+
             # Create unique filenames to prevent overwriting
             save_name = f"uploaded_{i}_{filename}"
             image_path = os.path.join('static', save_name)
             file.save(image_path)
-            
+
             # Make predictions
             result = model(image_path)
             detected_objects = result[0].boxes
             class_ids = [box.cls.item() for box in detected_objects]
-            
+
             # Aggregate counts to the total counter
             total_class_counts.update(class_ids)
-            
+
             # Save the detected image
             detected_name = f"detected_{i}_{filename}"
             detected_image_path = os.path.join('static', detected_name)
             result[0].save(detected_image_path)
-            
+
             # Add to our list for the template
             image_data.append({
                 'original': save_name,
@@ -176,11 +175,27 @@ def dashboard():
 
         print(f"Total Class counts : {total_class_counts}")
 
+        # --- NEW SECTION: Fetch User Info for the Report ---
+        user_info = {}
+        connection = connect_to_db()
+        if connection:
+            try:
+                with connection.cursor(dictionary=True) as cursor:
+                    cursor.execute("SELECT * FROM user_info WHERE email = %s", (user_email,))
+                    user_info = cursor.fetchone()
+            except connector.Error as e:
+                print(f"Error fetching user info: {e}")
+            # It's good practice to close the connection, though your current app structure handles it loosely
+            # connection.close()
+
         # Fetch part prices using the AGGREGATED counts
         part_prices = get_part_prices(user_email, total_class_counts)
-        
-        # Pass 'image_data' (list of images) instead of single image paths
-        return render_template('estimate.html', image_data=image_data, part_prices=part_prices)
+
+        # --- UPDATED RETURN: Pass user_info to the template ---
+        return render_template('estimate.html',
+                               image_data=image_data,
+                               part_prices=part_prices,
+                               user_info=user_info)
 
     return render_template('dashboard.html')
 
@@ -303,6 +318,7 @@ def edit_profile():
         flash("Database connection failed. Please try again later.", "error")
 
     return redirect(url_for('dashboard'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

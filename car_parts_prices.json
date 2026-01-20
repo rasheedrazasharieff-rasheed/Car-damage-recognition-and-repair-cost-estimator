@@ -1,49 +1,173 @@
 {
-    "HONDA": {
-        "City": {"Bonnet": 15000, "Bumper": 10000, "Dickey": 8000, "Door": 20000, "Fender": 5000, "Light": 3000, "Windshield": 8000},
-        "Amaze": {"Bonnet": 12000, "Bumper": 8000, "Dickey": 6000, "Door": 18000, "Fender": 4000, "Light": 2500, "Windshield": 7000},
-        "WR-V": {"Bonnet": 16000, "Bumper": 11000, "Dickey": 9000, "Door": 22000, "Fender": 6000, "Light": 3500, "Windshield": 9000},
-        "Jazz": {"Bonnet": 14000, "Bumper": 9000, "Dickey": 7000, "Door": 19000, "Fender": 4500, "Light": 2800, "Windshield": 8000},
-        "HR-V": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000},
-        "Pilot": {"Bonnet": 22000, "Bumper": 15000, "Dickey": 13000, "Door": 28000, "Fender": 8000, "Light": 5000, "Windshield": 12000},
-        "CR-V": {"Bonnet": 20000, "Bumper": 13000, "Dickey": 11000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000},
-        "Accord": {"Bonnet": 22000, "Bumper": 15000, "Dickey": 13000, "Door": 28000, "Fender": 8000, "Light": 5000, "Windshield": 12000},
-        "Civic": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000}
-    },
     "MARUTI SUZUKI": {
-        "Swift": {"Bonnet": 10000, "Bumper": 7000, "Dickey": 5000, "Door": 15000, "Fender": 3000, "Light": 2000, "Windshield": 6000},
-        "Baleno": {"Bonnet": 12000, "Bumper": 8000, "Dickey": 6000, "Door": 18000, "Fender": 4000, "Light": 2500, "Windshield": 7000},
-        "Vitara Brezza": {"Bonnet": 14000, "Bumper": 9000, "Dickey": 7000, "Door": 20000, "Fender": 4500, "Light": 2800, "Windshield": 8000},
-        "Wagon R": {"Bonnet": 12000, "Bumper": 8000, "Dickey": 6000, "Door": 18000, "Fender": 4000, "Light": 2500, "Windshield": 7000},
-        "Ertiga": {"Bonnet": 16000, "Bumper": 11000, "Dickey": 9000, "Door": 22000, "Fender": 6000, "Light": 3500, "Windshield": 9000},
-        "Grand Vitara": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000}
-    },
-    "TOYOTA": {
-        "Corolla": {"Bonnet": 20000, "Bumper": 13000, "Dickey": 11000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000},
-        "Camry": {"Bonnet": 22000, "Bumper": 15000, "Dickey": 13000, "Door": 28000, "Fender": 8000, "Light": 5000, "Windshield": 12000},
-        "Fortuner": {"Bonnet": 25000, "Bumper": 17000, "Dickey": 15000, "Door": 30000, "Fender": 9000, "Light": 6000, "Windshield": 14000},
-        "Innova": {"Bonnet": 23000, "Bumper": 16000, "Dickey": 14000, "Door": 29000, "Fender": 8500, "Light": 5500, "Windshield": 13000},
-        "Yaris": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000}
+        "Alto K10": {"Bonnet": 4500, "Bumper": 2500, "Dickey": 3500, "Door": 6000, "Fender": 2200, "Light": 1800, "Windshield": 4500},
+        "S-Presso": {"Bonnet": 5000, "Bumper": 2800, "Dickey": 4000, "Door": 6500, "Fender": 2400, "Light": 2000, "Windshield": 5000},
+        "Celerio": {"Bonnet": 5500, "Bumper": 3000, "Dickey": 4200, "Door": 7000, "Fender": 2500, "Light": 2200, "Windshield": 5500},
+        "Wagon R": {"Bonnet": 6000, "Bumper": 3200, "Dickey": 4500, "Door": 7500, "Fender": 2600, "Light": 2400, "Windshield": 6000},
+        "Ignis": {"Bonnet": 7000, "Bumper": 4500, "Dickey": 5500, "Door": 8500, "Fender": 3000, "Light": 3500, "Windshield": 7000},
+        "Swift": {"Bonnet": 7500, "Bumper": 4000, "Dickey": 6000, "Door": 9000, "Fender": 3200, "Light": 3000, "Windshield": 6500},
+        "Baleno": {"Bonnet": 8500, "Bumper": 4500, "Dickey": 6500, "Door": 9500, "Fender": 3500, "Light": 4500, "Windshield": 7500},
+        "Dzire": {"Bonnet": 8000, "Bumper": 4200, "Dickey": 6200, "Door": 9200, "Fender": 3300, "Light": 3200, "Windshield": 7000},
+        "Ciaz": {"Bonnet": 11000, "Bumper": 6500, "Dickey": 8500, "Door": 12000, "Fender": 4500, "Light": 6000, "Windshield": 9000},
+        "Brezza": {"Bonnet": 10500, "Bumper": 5500, "Dickey": 8000, "Door": 11000, "Fender": 4000, "Light": 5000, "Windshield": 8500},
+        "Fronx": {"Bonnet": 10000, "Bumper": 5800, "Dickey": 8200, "Door": 11500, "Fender": 4200, "Light": 5500, "Windshield": 8500},
+        "Grand Vitara": {"Bonnet": 14000, "Bumper": 8500, "Dickey": 12000, "Door": 16000, "Fender": 6000, "Light": 9000, "Windshield": 12000},
+        "Ertiga": {"Bonnet": 9500, "Bumper": 5000, "Dickey": 11000, "Door": 10500, "Fender": 3800, "Light": 4500, "Windshield": 8000},
+        "XL6": {"Bonnet": 11500, "Bumper": 6000, "Dickey": 11500, "Door": 12000, "Fender": 4500, "Light": 7500, "Windshield": 9000},
+        "Jimny": {"Bonnet": 12000, "Bumper": 7000, "Dickey": 10000, "Door": 14000, "Fender": 5500, "Light": 6000, "Windshield": 7000},
+        "Invicto": {"Bonnet": 22000, "Bumper": 12000, "Dickey": 18000, "Door": 25000, "Fender": 9000, "Light": 15000, "Windshield": 18000}
     },
     "HYUNDAI": {
-        "i20": {"Bonnet": 15000, "Bumper": 10000, "Dickey": 8000, "Door": 20000, "Fender": 5000, "Light": 3000, "Windshield": 8000},
-        "Creta": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000},
-        "Verna": {"Bonnet": 16000, "Bumper": 11000, "Dickey": 9000, "Door": 22000, "Fender": 6000, "Light": 3500, "Windshield": 9000},
-        "Venue": {"Bonnet": 17000, "Bumper": 11500, "Dickey": 9500, "Door": 23000, "Fender": 6500, "Light": 3750, "Windshield": 9500},
-        "Tucson": {"Bonnet": 20000, "Bumper": 13000, "Dickey": 11000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000}
+        "Santro": {"Bonnet": 5500, "Bumper": 3000, "Dickey": 4500, "Door": 7000, "Fender": 2500, "Light": 2500, "Windshield": 5000},
+        "Grand i10 Nios": {"Bonnet": 7000, "Bumper": 3800, "Dickey": 5500, "Door": 8500, "Fender": 3000, "Light": 3500, "Windshield": 6500},
+        "i20": {"Bonnet": 9000, "Bumper": 5500, "Dickey": 7000, "Door": 10000, "Fender": 3800, "Light": 5000, "Windshield": 8000},
+        "Aura": {"Bonnet": 7500, "Bumper": 4000, "Dickey": 6000, "Door": 9000, "Fender": 3200, "Light": 3800, "Windshield": 7000},
+        "Verna": {"Bonnet": 12500, "Bumper": 8000, "Dickey": 9500, "Door": 14000, "Fender": 5000, "Light": 11000, "Windshield": 10000},
+        "Venue": {"Bonnet": 9500, "Bumper": 6000, "Dickey": 8500, "Door": 11000, "Fender": 4000, "Light": 6500, "Windshield": 9000},
+        "Exter": {"Bonnet": 8500, "Bumper": 5000, "Dickey": 7500, "Door": 9500, "Fender": 3500, "Light": 4500, "Windshield": 7500},
+        "Creta": {"Bonnet": 15000, "Bumper": 9500, "Dickey": 13000, "Door": 17000, "Fender": 6500, "Light": 12000, "Windshield": 13000},
+        "Alcazar": {"Bonnet": 17000, "Bumper": 10500, "Dickey": 15000, "Door": 19000, "Fender": 7500, "Light": 14000, "Windshield": 15000},
+        "Tucson": {"Bonnet": 28000, "Bumper": 18000, "Dickey": 22000, "Door": 32000, "Fender": 12000, "Light": 25000, "Windshield": 20000},
+        "Kona": {"Bonnet": 25000, "Bumper": 15000, "Dickey": 20000, "Door": 28000, "Fender": 10000, "Light": 18000, "Windshield": 18000},
+        "Ioniq 5": {"Bonnet": 45000, "Bumper": 25000, "Dickey": 35000, "Door": 45000, "Fender": 18000, "Light": 40000, "Windshield": 30000}
     },
-    "NISSAN": {
-        "Altima": {"Bonnet": 18000, "Bumper": 13000, "Dickey": 11000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000},
-        "Rogue": {"Bonnet": 20000, "Bumper": 14000, "Dickey": 12000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000},
-        "Sentra": {"Bonnet": 17000, "Bumper": 12000, "Dickey": 10000, "Door": 22000, "Fender": 6500, "Light": 3750, "Windshield": 9500},
-        "Pathfinder": {"Bonnet": 18000, "Bumper": 13000, "Dickey": 11000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000},
-        "Titan": {"Bonnet": 20000, "Bumper": 14000, "Dickey": 12000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000}
+    "TATA MOTORS": {
+        "Tiago": {"Bonnet": 6500, "Bumper": 3500, "Dickey": 5000, "Door": 8000, "Fender": 2800, "Light": 3000, "Windshield": 6000},
+        "Tigor": {"Bonnet": 7000, "Bumper": 3800, "Dickey": 5500, "Door": 8500, "Fender": 3000, "Light": 3200, "Windshield": 6500},
+        "Altroz": {"Bonnet": 9500, "Bumper": 5500, "Dickey": 7500, "Door": 10500, "Fender": 4000, "Light": 5500, "Windshield": 8500},
+        "Punch": {"Bonnet": 8000, "Bumper": 4500, "Dickey": 6500, "Door": 9500, "Fender": 3500, "Light": 4200, "Windshield": 7500},
+        "Nexon": {"Bonnet": 11000, "Bumper": 6500, "Dickey": 9000, "Door": 12000, "Fender": 4500, "Light": 7000, "Windshield": 9500},
+        "Harrier": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 15000, "Door": 20000, "Fender": 7500, "Light": 16000, "Windshield": 14000},
+        "Safari": {"Bonnet": 19000, "Bumper": 13000, "Dickey": 16000, "Door": 21000, "Fender": 8000, "Light": 17000, "Windshield": 15000},
+        "Curvv": {"Bonnet": 16000, "Bumper": 10000, "Dickey": 14000, "Door": 18000, "Fender": 7000, "Light": 14000, "Windshield": 13000},
+        "Tiago EV": {"Bonnet": 7000, "Bumper": 4000, "Dickey": 5500, "Door": 8500, "Fender": 3000, "Light": 3500, "Windshield": 6500},
+        "Nexon EV": {"Bonnet": 12000, "Bumper": 7000, "Dickey": 9500, "Door": 13000, "Fender": 5000, "Light": 8500, "Windshield": 10000}
+    },
+    "MAHINDRA": {
+        "Bolero": {"Bonnet": 8500, "Bumper": 4500, "Dickey": 7000, "Door": 10000, "Fender": 4000, "Light": 3500, "Windshield": 6500},
+        "Bolero Neo": {"Bonnet": 9500, "Bumper": 5000, "Dickey": 8000, "Door": 11000, "Fender": 4500, "Light": 4500, "Windshield": 7500},
+        "Scorpio Classic": {"Bonnet": 14000, "Bumper": 7500, "Dickey": 11000, "Door": 15000, "Fender": 6000, "Light": 6000, "Windshield": 9000},
+        "Scorpio N": {"Bonnet": 18000, "Bumper": 11000, "Dickey": 15000, "Door": 20000, "Fender": 8000, "Light": 18000, "Windshield": 13000},
+        "Thar": {"Bonnet": 15000, "Bumper": 8000, "Dickey": 10000, "Door": 18000, "Fender": 7000, "Light": 5500, "Windshield": 9500},
+        "XUV 3XO": {"Bonnet": 10000, "Bumper": 6000, "Dickey": 8500, "Door": 11000, "Fender": 4500, "Light": 8000, "Windshield": 9000},
+        "XUV400": {"Bonnet": 11000, "Bumper": 6500, "Dickey": 9000, "Door": 12000, "Fender": 5000, "Light": 8500, "Windshield": 9500},
+        "XUV700": {"Bonnet": 22000, "Bumper": 14000, "Dickey": 18000, "Door": 25000, "Fender": 9500, "Light": 25000, "Windshield": 16000},
+        "Marazzo": {"Bonnet": 13000, "Bumper": 8000, "Dickey": 12000, "Door": 16000, "Fender": 6000, "Light": 7000, "Windshield": 11000}
+    },
+    "TOYOTA": {
+        "Glanza": {"Bonnet": 8800, "Bumper": 4800, "Dickey": 6800, "Door": 9800, "Fender": 3800, "Light": 5000, "Windshield": 8000},
+        "Rumion": {"Bonnet": 10000, "Bumper": 5500, "Dickey": 11500, "Door": 11000, "Fender": 4000, "Light": 5000, "Windshield": 8500},
+        "Hyryder": {"Bonnet": 15000, "Bumper": 9000, "Dickey": 12500, "Door": 17000, "Fender": 6500, "Light": 10000, "Windshield": 12500},
+        "Innova Crysta": {"Bonnet": 20000, "Bumper": 12000, "Dickey": 18000, "Door": 24000, "Fender": 8500, "Light": 12000, "Windshield": 14000},
+        "Innova Hycross": {"Bonnet": 24000, "Bumper": 15000, "Dickey": 20000, "Door": 28000, "Fender": 10000, "Light": 22000, "Windshield": 16000},
+        "Fortuner": {"Bonnet": 35000, "Bumper": 22000, "Dickey": 30000, "Door": 40000, "Fender": 14000, "Light": 28000, "Windshield": 20000},
+        "Camry": {"Bonnet": 45000, "Bumper": 28000, "Dickey": 35000, "Door": 50000, "Fender": 18000, "Light": 45000, "Windshield": 25000},
+        "Vellfire": {"Bonnet": 80000, "Bumper": 60000, "Dickey": 70000, "Door": 120000, "Fender": 40000, "Light": 150000, "Windshield": 60000},
+        "Hilux": {"Bonnet": 38000, "Bumper": 25000, "Dickey": 25000, "Door": 42000, "Fender": 15000, "Light": 30000, "Windshield": 22000}
+    },
+    "KIA": {
+        "Sonet": {"Bonnet": 10500, "Bumper": 6500, "Dickey": 9000, "Door": 12000, "Fender": 4500, "Light": 7500, "Windshield": 9000},
+        "Seltos": {"Bonnet": 16000, "Bumper": 10000, "Dickey": 13500, "Door": 18000, "Fender": 7000, "Light": 14000, "Windshield": 13000},
+        "Carens": {"Bonnet": 15000, "Bumper": 9500, "Dickey": 14000, "Door": 17000, "Fender": 6500, "Light": 11000, "Windshield": 12500},
+        "Carnival": {"Bonnet": 40000, "Bumper": 25000, "Dickey": 35000, "Door": 55000, "Fender": 18000, "Light": 40000, "Windshield": 25000},
+        "EV6": {"Bonnet": 60000, "Bumper": 35000, "Dickey": 50000, "Door": 70000, "Fender": 25000, "Light": 80000, "Windshield": 40000}
+    },
+    "HONDA": {
+        "Amaze": {"Bonnet": 7500, "Bumper": 4500, "Dickey": 6500, "Door": 9500, "Fender": 3500, "Light": 4000, "Windshield": 7500},
+        "City": {"Bonnet": 12000, "Bumper": 7500, "Dickey": 10000, "Door": 15000, "Fender": 5500, "Light": 12000, "Windshield": 10000},
+        "Elevate": {"Bonnet": 14000, "Bumper": 8500, "Dickey": 12000, "Door": 16000, "Fender": 6000, "Light": 11000, "Windshield": 11000},
+        "Jazz": {"Bonnet": 9000, "Bumper": 5500, "Dickey": 8000, "Door": 11000, "Fender": 4000, "Light": 6000, "Windshield": 8500},
+        "WR-V": {"Bonnet": 10000, "Bumper": 6000, "Dickey": 9000, "Door": 12000, "Fender": 4500, "Light": 7000, "Windshield": 9000}
+    },
+    "VOLKSWAGEN": {
+        "Polo": {"Bonnet": 9500, "Bumper": 6500, "Dickey": 8500, "Door": 12000, "Fender": 4500, "Light": 7000, "Windshield": 9000},
+        "Vento": {"Bonnet": 11000, "Bumper": 7500, "Dickey": 10000, "Door": 14000, "Fender": 5500, "Light": 9000, "Windshield": 10000},
+        "Virtus": {"Bonnet": 14000, "Bumper": 9000, "Dickey": 12000, "Door": 18000, "Fender": 7000, "Light": 15000, "Windshield": 12000},
+        "Taigun": {"Bonnet": 15000, "Bumper": 9500, "Dickey": 13000, "Door": 19000, "Fender": 7500, "Light": 16000, "Windshield": 13000},
+        "Tiguan": {"Bonnet": 35000, "Bumper": 22000, "Dickey": 30000, "Door": 45000, "Fender": 15000, "Light": 45000, "Windshield": 25000}
     },
     "SKODA": {
-        "Octavia": {"Bonnet": 20000, "Bumper": 14000, "Dickey": 12000, "Door": 26000, "Fender": 7500, "Light": 4500, "Windshield": 11000},
-        "Superb": {"Bonnet": 22000, "Bumper": 15000, "Dickey": 13000, "Door": 28000, "Fender": 8000, "Light": 5000, "Windshield": 12000},
-        "Rapid": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 10000, "Door": 24000, "Fender": 7000, "Light": 4000, "Windshield": 10000},
-        "Kodiaq": {"Bonnet": 22000, "Bumper": 15000, "Dickey": 13000, "Door": 28000, "Fender": 8000, "Light": 5000, "Windshield": 12000},
-        "Karoq": {"Bonnet": 19000, "Bumper": 13500, "Dickey": 11500, "Door": 25000, "Fender": 7250, "Light": 4250, "Windshield": 10500}
+        "Slavia": {"Bonnet": 14500, "Bumper": 9500, "Dickey": 12500, "Door": 18500, "Fender": 7200, "Light": 15500, "Windshield": 12500},
+        "Kushaq": {"Bonnet": 15500, "Bumper": 10000, "Dickey": 13500, "Door": 19500, "Fender": 7800, "Light": 16500, "Windshield": 13500},
+        "Kodiaq": {"Bonnet": 40000, "Bumper": 28000, "Dickey": 35000, "Door": 55000, "Fender": 18000, "Light": 60000, "Windshield": 30000},
+        "Superb": {"Bonnet": 42000, "Bumper": 30000, "Dickey": 38000, "Door": 58000, "Fender": 20000, "Light": 65000, "Windshield": 32000}
+    },
+    "RENAULT": {
+        "Kwid": {"Bonnet": 4800, "Bumper": 2800, "Dickey": 3800, "Door": 6500, "Fender": 2400, "Light": 2200, "Windshield": 5000},
+        "Triber": {"Bonnet": 7000, "Bumper": 4000, "Dickey": 6000, "Door": 9000, "Fender": 3500, "Light": 3500, "Windshield": 7000},
+        "Kiger": {"Bonnet": 8000, "Bumper": 5000, "Dickey": 7500, "Door": 10000, "Fender": 4000, "Light": 6000, "Windshield": 8000},
+        "Duster": {"Bonnet": 12000, "Bumper": 7000, "Dickey": 10000, "Door": 14000, "Fender": 5500, "Light": 8000, "Windshield": 10000}
+    },
+    "NISSAN": {
+        "Magnite": {"Bonnet": 8200, "Bumper": 5200, "Dickey": 7800, "Door": 10500, "Fender": 4200, "Light": 6500, "Windshield": 8200},
+        "X-Trail": {"Bonnet": 35000, "Bumper": 20000, "Dickey": 30000, "Door": 40000, "Fender": 15000, "Light": 40000, "Windshield": 25000}
+    },
+    "MG": {
+        "Hector": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 16000, "Door": 22000, "Fender": 8000, "Light": 20000, "Windshield": 14000},
+        "Hector Plus": {"Bonnet": 19000, "Bumper": 12500, "Dickey": 17000, "Door": 23000, "Fender": 8500, "Light": 21000, "Windshield": 15000},
+        "Astor": {"Bonnet": 16000, "Bumper": 10000, "Dickey": 14000, "Door": 19000, "Fender": 7500, "Light": 15000, "Windshield": 13000},
+        "Gloster": {"Bonnet": 45000, "Bumper": 30000, "Dickey": 40000, "Door": 55000, "Fender": 20000, "Light": 60000, "Windshield": 35000},
+        "Comet EV": {"Bonnet": 6000, "Bumper": 4000, "Dickey": 5000, "Door": 8000, "Fender": 3000, "Light": 4000, "Windshield": 7000},
+        "ZS EV": {"Bonnet": 22000, "Bumper": 14000, "Dickey": 18000, "Door": 25000, "Fender": 9000, "Light": 25000, "Windshield": 18000}
+    },
+    "JEEP": {
+        "Compass": {"Bonnet": 28000, "Bumper": 18000, "Dickey": 25000, "Door": 35000, "Fender": 12000, "Light": 35000, "Windshield": 22000},
+        "Meridian": {"Bonnet": 32000, "Bumper": 20000, "Dickey": 28000, "Door": 40000, "Fender": 14000, "Light": 40000, "Windshield": 25000},
+        "Wrangler": {"Bonnet": 60000, "Bumper": 45000, "Dickey": 50000, "Door": 80000, "Fender": 30000, "Light": 55000, "Windshield": 40000}
+    },
+    "FORD": {
+        "EcoSport": {"Bonnet": 11000, "Bumper": 7000, "Dickey": 12000, "Door": 15000, "Fender": 5500, "Light": 8000, "Windshield": 9000},
+        "Figo": {"Bonnet": 8000, "Bumper": 5000, "Dickey": 7000, "Door": 10000, "Fender": 4000, "Light": 4500, "Windshield": 7500},
+        "Aspire": {"Bonnet": 8500, "Bumper": 5500, "Dickey": 7500, "Door": 11000, "Fender": 4200, "Light": 5000, "Windshield": 8000},
+        "Endeavour": {"Bonnet": 35000, "Bumper": 22000, "Dickey": 30000, "Door": 45000, "Fender": 15000, "Light": 35000, "Windshield": 20000}
+    },
+    "CITROEN": {
+        "C3": {"Bonnet": 8500, "Bumper": 5500, "Dickey": 7500, "Door": 11000, "Fender": 4200, "Light": 5000, "Windshield": 8000},
+        "eC3": {"Bonnet": 9000, "Bumper": 6000, "Dickey": 8000, "Door": 11500, "Fender": 4500, "Light": 5500, "Windshield": 8500},
+        "C3 Aircross": {"Bonnet": 12000, "Bumper": 8000, "Dickey": 11000, "Door": 15000, "Fender": 6000, "Light": 9000, "Windshield": 11000},
+        "Basalt": {"Bonnet": 13000, "Bumper": 8500, "Dickey": 12000, "Door": 16000, "Fender": 6500, "Light": 10000, "Windshield": 12000}
+    },
+    "AUDI": {
+        "A4": {"Bonnet": 65000, "Bumper": 45000, "Dickey": 55000, "Door": 85000, "Fender": 35000, "Light": 120000, "Windshield": 45000},
+        "A6": {"Bonnet": 85000, "Bumper": 55000, "Dickey": 70000, "Door": 110000, "Fender": 45000, "Light": 180000, "Windshield": 60000},
+        "Q3": {"Bonnet": 70000, "Bumper": 50000, "Dickey": 60000, "Door": 90000, "Fender": 38000, "Light": 140000, "Windshield": 50000},
+        "Q5": {"Bonnet": 90000, "Bumper": 65000, "Dickey": 80000, "Door": 120000, "Fender": 50000, "Light": 200000, "Windshield": 65000},
+        "Q7": {"Bonnet": 120000, "Bumper": 90000, "Dickey": 100000, "Door": 150000, "Fender": 70000, "Light": 350000, "Windshield": 90000}
+    },
+    "BMW": {
+        "3 Series": {"Bonnet": 70000, "Bumper": 50000, "Dickey": 60000, "Door": 95000, "Fender": 40000, "Light": 150000, "Windshield": 50000},
+        "5 Series": {"Bonnet": 95000, "Bumper": 65000, "Dickey": 80000, "Door": 125000, "Fender": 55000, "Light": 250000, "Windshield": 70000},
+        "X1": {"Bonnet": 75000, "Bumper": 55000, "Dickey": 65000, "Door": 100000, "Fender": 42000, "Light": 160000, "Windshield": 55000},
+        "X3": {"Bonnet": 90000, "Bumper": 70000, "Dickey": 85000, "Door": 120000, "Fender": 50000, "Light": 220000, "Windshield": 65000},
+        "X5": {"Bonnet": 140000, "Bumper": 100000, "Dickey": 110000, "Door": 180000, "Fender": 80000, "Light": 400000, "Windshield": 100000}
+    },
+    "MERCEDES-BENZ": {
+        "C-Class": {"Bonnet": 75000, "Bumper": 55000, "Dickey": 65000, "Door": 100000, "Fender": 45000, "Light": 180000, "Windshield": 60000},
+        "E-Class": {"Bonnet": 100000, "Bumper": 75000, "Dickey": 90000, "Door": 140000, "Fender": 60000, "Light": 300000, "Windshield": 80000},
+        "GLA": {"Bonnet": 80000, "Bumper": 60000, "Dickey": 70000, "Door": 110000, "Fender": 48000, "Light": 200000, "Windshield": 65000},
+        "GLC": {"Bonnet": 110000, "Bumper": 80000, "Dickey": 95000, "Door": 150000, "Fender": 65000, "Light": 320000, "Windshield": 85000},
+        "GLE": {"Bonnet": 150000, "Bumper": 110000, "Dickey": 130000, "Door": 200000, "Fender": 90000, "Light": 450000, "Windshield": 110000}
+    },
+    "VOLVO": {
+        "XC40": {"Bonnet": 65000, "Bumper": 50000, "Dickey": 60000, "Door": 90000, "Fender": 40000, "Light": 140000, "Windshield": 55000},
+        "XC60": {"Bonnet": 90000, "Bumper": 70000, "Dickey": 85000, "Door": 125000, "Fender": 55000, "Light": 250000, "Windshield": 75000}
+    },
+    "LAND ROVER": {
+        "Discovery Sport": {"Bonnet": 95000, "Bumper": 75000, "Dickey": 90000, "Door": 130000, "Fender": 60000, "Light": 280000, "Windshield": 80000},
+        "Range Rover Evoque": {"Bonnet": 110000, "Bumper": 85000, "Dickey": 100000, "Door": 150000, "Fender": 70000, "Light": 350000, "Windshield": 90000}
+    },
+    "JAGUAR": {
+        "F-Pace": {"Bonnet": 120000, "Bumper": 90000, "Dickey": 110000, "Door": 160000, "Fender": 75000, "Light": 380000, "Windshield": 95000},
+        "XF": {"Bonnet": 100000, "Bumper": 80000, "Dickey": 95000, "Door": 140000, "Fender": 65000, "Light": 300000, "Windshield": 85000}
+    },
+    "BYD": {
+        "Atto 3": {"Bonnet": 35000, "Bumper": 22000, "Dickey": 30000, "Door": 45000, "Fender": 15000, "Light": 40000, "Windshield": 25000},
+        "Seal": {"Bonnet": 45000, "Bumper": 30000, "Dickey": 40000, "Door": 60000, "Fender": 20000, "Light": 60000, "Windshield": 35000}
+    },
+    "FORCE": {
+        "Gurkha": {"Bonnet": 18000, "Bumper": 12000, "Dickey": 15000, "Door": 20000, "Fender": 8000, "Light": 7000, "Windshield": 12000}
+    },
+    "ISUZU": {
+        "V-Cross": {"Bonnet": 30000, "Bumper": 20000, "Dickey": 25000, "Door": 35000, "Fender": 12000, "Light": 25000, "Windshield": 18000}
     }
 }
